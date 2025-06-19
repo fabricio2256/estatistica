@@ -108,5 +108,28 @@ def estimativas_variabilidade(dados_brutos, media):
     # df_percentis.index = novos_indicis
     # RESUMISE EM:   "df_percentis.index = [f"{p*100}%" for p in decimais]"
     df_percentis.index = [f"{p*100}%" for p in decimais]
-
+    print("\n")
+    
+    # Quartis
+    quartis = [0.25, 0.5, 0.75]
+    df_quartis = pd.DataFrame(dados_brutos.quantile(quartis))
+    df_quartis.index = ['Q', 'Q2', 'Q3']
+    print(df_quartis.transpose())
+    # Amplitude
+    amplitude = dados_brutos.max() - dados_brutos.min()
+    amplitude_alt = dados_brutos.iloc[-1] - dados_brutos.iloc[0]
+    # amplitud interquatil = Q3 - Q1
+    amplitude_interquartil = df_quartis.max() - df_quartis.min()
+    amplitude_interquartil_alt = dados_brutos.quantile(0.75) - dados_brutos.quantile(0.25)
+    # mmediana
+    mediana = dados_brutos.median()
+    # DataFrame 
+    df_amplitude = pd.DataFrame({
+        'Amplitude (max - min)': amplitude,
+        'Amplitude interquantil (Q3 - Q1)': amplitude_interquartil,
+        'Mediana (Q2)': mediana
+    })
+    # Imprimir dados
+    print(df_amplitude.round(2))
+    
 estimativas_variabilidade(df_dados_brutos['Taxa Homicídio'], np.mean(df_dados_brutos['Taxa Homicídio']))
