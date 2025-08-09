@@ -20,7 +20,8 @@ print(df.head())
 # Encontrar a maior e menor data
 data_inicio = df.index.min()
 data_fim = df.index.max()
-print("-" * 50)
+
+
 print(f"Quantidade de variações coletadas:{len(df)}")
 print(f"Período de coleta: {data_inicio.strftime('%d/%m/%Y')} á {data_fim.strftime('%d/%m/%Y')}")
 
